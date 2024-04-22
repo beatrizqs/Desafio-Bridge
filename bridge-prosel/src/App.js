@@ -2,8 +2,8 @@ import "./App.css";
 import { useState } from "react";
 
 function ResultTable(props) {
-  const titleClassName = "text-xl font-semibold text-center"
-  const valueClassName = "text-center text-3xl font-semibold"
+  const titleClassName = "text-xl font-semibold text-center";
+  const valueClassName = "text-center text-3xl font-semibold";
   return (
     <div className="w-[95%] my-5 border rounded-lg p-5 flex flex-row justify-between shadow-md">
       <div className="flex flex-col">
@@ -16,7 +16,7 @@ function ResultTable(props) {
       </div>
       <div className="flex flex-col">
         <h2 className={titleClassName}>Tempo de Processamento</h2>
-        <p className={valueClassName}>{props.time} segundos</p>
+        <p className={valueClassName}>{props.time} ms</p>
       </div>
     </div>
   );
@@ -25,9 +25,32 @@ function ResultTable(props) {
 function App() {
   // retirar arquivos e imagens nao usadas
   const [prevResults, setPrevResults] = useState([]);
-  const [number, setNumber] = useState("")
+  const [currentResult, setCurrentResult] = useState({});
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
-  function handleSubmit(e) {}
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(e.target.value);
+    const numberAsInt = parseInt(e.target.value);
+    console.log(numberAsInt);
+
+    if (isNaN(numberAsInt)) {
+      setShowErrorMessage(true);
+    } else {
+      const res = fetch("/api/calculate-prime-numbers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: { number: numberAsInt },
+      });
+
+      if (res) {
+        setCurrentResult(res);
+        setPrevResults(...prevResults, res);
+      }
+      setShowErrorMessage(false);
+    }
+  }
+
   return (
     <div>
       <div className="w-[80%] max-w-[1500px] my-20 mx-auto">
@@ -40,33 +63,48 @@ function App() {
         </p> */}
         <form
           onSubmit={(e) => handleSubmit(e)}
-          className="flex flex-row gap-x-5 w-full justify-between items-center w-1/2 h-12 mx-auto mt-10"
+          className="flex flex-col w-1/2 mx-auto mt-10"
         >
-          <input
-            type="text"
-            placeholder="Insira seu número aqui..."
-            className="border rounded py-2 placeholder:text-xl px-3 w-full h-full"
-          ></input>
-          <button
-            type="submit"
-            className="text-center text-white my-10 text-xl font-semibold bg-purple-700 rounded px-4 py-2 h-full"
-          >
-            Enviar
-          </button>
+          <div className="flex flex-row gap-x-5 justify-between items-center h-12">
+            <input
+              type="text"
+              placeholder="Insira seu número aqui..."
+              className={`border rounded py-2 placeholder:text-xl placeholder:font-normal px-3 w-full h-full ${showErrorMessage ? "border-red-600" : ""}`}
+            ></input>
+            <button
+              type="submit"
+              className="text-center text-white my-10 text-xl font-semibold bg-purple-700 rounded px-4 py-2 h-full"
+            >
+              Enviar
+            </button>
+          </div>
+          {showErrorMessage && <p className="text-red-600 font-regular my-3">Número inválido. Por favor, insira um número inteiro e positivo.</p>}
         </form>
         <div className="grid grid-cols-2 divide-x mx-auto my-20">
           <div className="flex flex-col">
             <h2 className="text-3xl font-bold text-center underline decoration-purple-700 decoration-8 mb-5">
               Resultado
             </h2>
-            <ResultTable number={10} result={4} time={0.3}/>
+            {Object.keys(currentResult) > 0 && (
+              <ResultTable
+                number={currentResult.number}
+                result={currentResult.primeNumbers}
+                time={currentResult.time}
+              />
+            )}
           </div>
           <div>
             <h2 className="text-3xl font-bold text-center underline decoration-purple-700 decoration-8 mb-5">
               Histórico
             </h2>
-            {prevResults.map((prevResult) => {
-              return <ResultTable number={prevResult.number} result={prevResult.result} time={prevResult.time}/>
+            {prevResults.reverse().map((prevResult) => {
+              return (
+                <ResultTable
+                  number={prevResult.number}
+                  result={prevResult.primeNumbers}
+                  time={prevResult.time}
+                />
+              );
             })}
           </div>
         </div>
