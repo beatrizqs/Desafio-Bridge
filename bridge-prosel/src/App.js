@@ -5,7 +5,7 @@ function ResultTable(props) {
   const titleClassName = "text-xl font-semibold text-center"
   const valueClassName = "text-center text-3xl font-semibold"
   return (
-    <div className="w-[95%] my-5 border rounded-lg p-5 flex flex-row justify-between shadow-md shadow-purple-300">
+    <div className="w-[95%] my-5 border rounded-lg p-5 flex flex-row justify-between shadow-md">
       <div className="flex flex-col">
         <h2 className={titleClassName}>Número</h2>
         <p className={valueClassName}>{props.number}</p>
@@ -23,12 +23,14 @@ function ResultTable(props) {
 }
 
 function App() {
+  // retirar arquivos e imagens nao usadas
   const [prevResults, setPrevResults] = useState([]);
+  const [number, setNumber] = useState("")
 
   function handleSubmit(e) {}
   return (
     <div>
-      <div className="w-[80%]  my-20 mx-auto">
+      <div className="w-[80%] max-w-[1500px] my-20 mx-auto">
         <h1 className="text-center text-4xl font-bold">
           Desafio Laboratório Bridge
         </h1>
@@ -52,15 +54,15 @@ function App() {
             Enviar
           </button>
         </form>
-        <div className="grid grid-cols-2 divide-x mx-auto my-10">
+        <div className="grid grid-cols-2 divide-x mx-auto my-20">
           <div className="flex flex-col">
-            <h2 className="text-3xl font-bold text-center underline decoration-purple-700 decoration-8">
+            <h2 className="text-3xl font-bold text-center underline decoration-purple-700 decoration-8 mb-5">
               Resultado
             </h2>
             <ResultTable number={10} result={4} time={0.3}/>
           </div>
           <div>
-            <h2 className="text-3xl font-bold text-center underline decoration-purple-700 decoration-8">
+            <h2 className="text-3xl font-bold text-center underline decoration-purple-700 decoration-8 mb-5">
               Histórico
             </h2>
             {prevResults.map((prevResult) => {
