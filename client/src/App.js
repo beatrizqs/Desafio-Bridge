@@ -2,8 +2,8 @@ import "./App.css";
 import { useState } from "react";
 
 function ResultTable(props) {
-  const titleClassName = "text-lg xl:text-xl font-semibold text-center";
-  const valueClassName = "text-2xl xl:text-3xl font-semibold text-center";
+  const titleClassName = "text-base sm:text-lg xl:text-xl font-semibold text-center";
+  const valueClassName = "text-xl sm:text-2xl xl:text-3xl font-semibold text-center";
   return (
     <div className="w-[90%] my-5 border rounded-lg p-5 flex flex-row justify-between shadow-md mx-auto">
       <div className="flex flex-col">
@@ -54,8 +54,8 @@ function App() {
 
   return (
     <div>
-      <div className="w-[85%] max-w-[1500px] my-10 md:my-20 mx-auto">
-        <h1 className="text-center text-2xl md:text-4xl font-bold">
+      <div className="w-[85%] max-w-[1200px] my-10 sm:my-20 mx-auto">
+        <h1 className="text-center text-2xl sm:text-4xl font-bold">
           Desafio Laboratório Bridge
         </h1>
         {/* <p className="text-center my-7 text-2xl">
@@ -66,7 +66,7 @@ function App() {
           onSubmit={(e) => handleSubmit(e)}
           className="flex flex-col w-3/4 max-w-[500px] mx-auto mt-10"
         >
-          <div className="flex flex-col md:flex-row gap-x-5 justify-between items-center h-12">
+          <div className="flex flex-col sm:flex-row gap-x-5 justify-between items-center h-12">
             <input
               value={number}
               onChange={(e) => setNumber(e.target.value)}
@@ -78,7 +78,7 @@ function App() {
             ></input>
             <button
               type="submit"
-              className="text-center text-white my-3 md:my-10 text-base md:text-xl font-semibold bg-purple-700 rounded px-4 py-2 h-full w-full md:w-fit"
+              className="text-center text-white my-3 sm:my-10 text-base md:text-xl font-semibold bg-purple-700 rounded px-4 py-2 h-full w-full sm:w-fit"
             >
               Enviar
             </button>
@@ -89,7 +89,7 @@ function App() {
             </p>
           )}
         </form>
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:divide-x mx-auto my-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 lg:divide-x mx-auto my-20">
           <div className="flex flex-col my-5">
             <h2 className="text-2xl md:text-3xl font-bold text-center underline decoration-purple-700 decoration-8 mb-5">
               Resultado
