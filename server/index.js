@@ -1,12 +1,12 @@
-import express from "express";
-
-const port = 3001;
+const express = require("express");
 
 const app = express();
 
-app.post("/api/calculate-prime-numbers", (req, res) => {
+port = 5000;
+
+app.get("/api/:number", (req, res) => {
     const startTime = new Date();
-    const {number} = req.body;
+    const {number} = req.params;
 
     let primeNumbers = []
     for (let num = 1; num < number; num++) {
@@ -23,10 +23,10 @@ app.post("/api/calculate-prime-numbers", (req, res) => {
     const endTime = new Date();
     const totalTime = endTime - startTime;
     const resData = { number: number, primeNumbers: primeNumbers.length, time: totalTime }
-    
+
     res.json(resData);
 });
 
 app.listen(port, () => {
-    console.log(`Bridge Challenge Server listening on ${port}`);
+  console.log(`Server listening on Port ${port}`);
 });
