@@ -22,3 +22,4 @@ Execução:
     'npm start';
     2. Em outro terminal, ir para a pasta client ('cd Desafio-Bridge/client') e usar o 
     comando 'npm start';
+
