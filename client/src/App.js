@@ -5,7 +5,7 @@ function ResultTable(props) {
   const titleClassName = "text-xl font-semibold text-center";
   const valueClassName = "text-center text-3xl font-semibold";
   return (
-    <div className="w-[95%] my-5 border rounded-lg p-5 flex flex-row justify-between shadow-md">
+    <div className="w-[95%] my-5 border rounded-lg p-5 flex flex-row justify-between shadow-md mx-auto">
       <div className="flex flex-col">
         <h2 className={titleClassName}>Número</h2>
         <p className={valueClassName}>{props.number}</p>
@@ -23,7 +23,6 @@ function ResultTable(props) {
 }
 
 function App() {
-  // retirar arquivos e imagens nao usadas
   const [prevResults, setPrevResults] = useState([]);
   const [currentResult, setCurrentResult] = useState({});
   const [number, setNumber] = useState("");
@@ -32,12 +31,11 @@ function App() {
   function handleSubmit(e) {
     e.preventDefault();
     const numberAsInt = parseInt(number);
-    console.log(numberAsInt);
 
     if (isNaN(numberAsInt)) {
       setShowErrorMessage(true);
     } else {
-      fetch(`/api/${10}`)
+      fetch(`/api/${number}`)
         .then((res) => res.json())
         .then((data) => {
           setCurrentResult(data);
@@ -45,6 +43,7 @@ function App() {
         });
 
       setShowErrorMessage(false);
+      setNumber("");
     }
   }
 
@@ -102,15 +101,17 @@ function App() {
             <h2 className="text-3xl font-bold text-center underline decoration-purple-700 decoration-8 mb-5">
               Histórico
             </h2>
-            {prevResults.reverse().map((prevResult) => {
-              return (
-                <ResultTable
-                  number={prevResult.number}
-                  result={prevResult.primeNumbers}
-                  time={prevResult.time}
-                />
-              );
-            })}
+            <div className="max-h-[390px] overflow-y-auto">
+              {prevResults.toReversed().map((prevResult) => {
+                return (
+                  <ResultTable
+                    number={prevResult.number}
+                    result={prevResult.primeNumbers}
+                    time={prevResult.time}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
