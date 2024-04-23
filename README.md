@@ -1,2 +1,12 @@
 # Desafio-Bridge
-alteracoes server? -> trocar em package.json tb
+
+Tecnologias Utilizadas:
+- Front-End:
+    - React
+    - TailwindCSS
+
+- Back-End:
+    - Node.js
+    - Express.js
+
+Execução:
