@@ -16,7 +16,7 @@ function ResultTable(props) {
       </div>
       <div className="flex flex-col">
         <h2 className={titleClassName}>Tempo de Processamento</h2>
-        <p className={valueClassName}>{props.time} ms</p>
+        <p className={valueClassName}>{parseFloat(props.time).toFixed(2)} ms</p>
       </div>
     </div>
   );
@@ -32,7 +32,7 @@ function App() {
     e.preventDefault();
     const numberAsInt = parseInt(number);
 
-    if (isNaN(numberAsInt)) {
+    if (isNaN(numberAsInt) || number.includes(",") || number.includes(".")) {
       setShowErrorMessage(true);
     } else {
       fetch(`/api/${number}`)

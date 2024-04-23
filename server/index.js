@@ -5,7 +5,7 @@ const app = express();
 port = 5000;
 
 app.get("/api/:number", (req, res) => {
-    const startTime = new Date();
+    const startTime = performance.now();
     const {number} = req.params;
 
     let primeNumbers = []
@@ -20,7 +20,7 @@ app.get("/api/:number", (req, res) => {
             primeNumbers.push(num)
         }
     }
-    const endTime = new Date();
+    const endTime = performance.now();
     const totalTime = endTime - startTime;
     const resData = { number: number, primeNumbers: primeNumbers.length, time: totalTime }
 
