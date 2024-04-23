@@ -57,10 +57,6 @@ function App() {
         <h1 className="text-center text-2xl sm:text-4xl font-bold">
           Desafio Laboratório Bridge
         </h1>
-        {/* <p className="text-center my-7 text-2xl">
-          Insira um número para saber quantos números primos menores que ele
-          existem.
-        </p> */}
         <form
           onSubmit={(e) => handleSubmit(e)}
           className="flex flex-col w-3/4 max-w-[500px] mx-auto mt-10"
